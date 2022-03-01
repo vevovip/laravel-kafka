@@ -1,4 +1,4 @@
-# Larvel Kafka Wrapper for mateusjunges/laravel-kafka
+# Laravel Kafka Wrapper for mateusjunges/laravel-kafka
 
 - This package adds support of batch producing
 - This package adds support of batch processing messages
@@ -11,7 +11,7 @@
 
 ## Installation:
 - `composer require chocofamilyme/laravel-kafka`
-- `php artisan vendor:publish --tag=chocofamily-laravel-kafka-config`
+- `php artisan vendor:publish --tag=laravel-kafka`
 
 ## If you want to batch messages in different storage then:
 - implement ``Chocofamilyme\LaravelKafka\BatchRepositories\BatchRepositoryInterface``

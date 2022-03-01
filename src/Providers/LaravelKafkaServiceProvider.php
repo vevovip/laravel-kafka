@@ -20,7 +20,7 @@ final class LaravelKafkaServiceProvider extends \Junges\Kafka\Providers\LaravelK
     {
         $this->publishes([
             __DIR__."/../../config/kafka.php" => config_path('kafka.php'),
-        ], 'chocofamily-laravel-kafka-config');
+        ], 'laravel-kafka');
     }
 
     private function registerBatchRepository(): void
