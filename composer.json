@@ -1,5 +1,5 @@
 {
-  "name": "chocofamilyme/laravel-kafka",
+  "name": "yuriykim/laravel-kafka",
   "description": "A kafka driver for laravel",
   "type": "library",
   "require": {
