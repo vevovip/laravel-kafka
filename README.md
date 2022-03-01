@@ -3,15 +3,15 @@
 - This package adds support of batch producing
 - This package adds support of batch processing messages
 
-## Installation:
-- `composer require chocofamilyme/laravel-kafka`
-- `php artisan vendor:publish --tag=chocofamily-laravel-kafka-config`
-
 ## Requirements:
 - php ^8.0
 - Laravel ^8.0
 - <a href="https://github.com/edenhill/librdkafka">edenhill/librdkafka</a>
 - <a href="https://arnaud.le-blanc.net/php-rdkafka-doc/phpdoc/rdkafka.installation.html">arnaud-lb/php-rdkafka</a>
+
+## Installation:
+- `composer require chocofamilyme/laravel-kafka`
+- `php artisan vendor:publish --tag=chocofamily-laravel-kafka-config`
 
 ## If you want to batch messages in different storage then:
 - implement ``Chocofamilyme\LaravelKafka\BatchRepositories\BatchRepositoryInterface``
