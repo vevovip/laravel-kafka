@@ -11,7 +11,6 @@
 
 ## Installation:
 - `composer require chocofamilyme/laravel-kafka`
-- `php artisan vendor:publish --tag=laravel-kafka`
 
 ## If you want to batch messages in different storage then:
 - implement ``Chocofamilyme\LaravelKafka\BatchRepositories\BatchRepositoryInterface``
@@ -29,4 +28,58 @@ return [
      */
     'batch_repository' => env('KAFKA_BATCH_REPOSITORY', \Chocofamilyme\LaravelKafka\BatchRepositories\InMemoryBatchRepository::class),
 ];
+```
+
+# Docs:
+- <a href="https://junges.dev/documentation/laravel-kafka/v1.6/1-introduction">mateusjunges/laravel-kafka</a>
+
+# Produce batch of messages at once
+
+```php
+use \Chocofamilyme\LaravelKafka\Producers\MessageBatch;
+use \Chocofamilyme\LaravelKafka\Facades\Kafka;
+use Junges\Kafka\Message\Message;
+
+$messageBatch = new MessageBatch();
+$messageBatch->push(new Message(
+    body: ['message' => 'some-message'],
+    key: 'some-key',
+    headers: ['some-header' => 'some-header-value'],
+));
+// ... add more messages to batch
+
+$producer = Kafka::publishOn('my.topic');
+
+$producer->batchSend($messageBatch);
+```
+
+# Consume batch
+
+- Batch will be deleted after processing
+- You can use any callable type as a callback of BatchHandler
+
+```php
+
+use \Chocofamilyme\LaravelKafka\Handlers\BatchHandler;
+use \Chocofamilyme\LaravelKafka\Facades\Kafka;
+use Illuminate\Support\Collection;
+
+class Handler {
+    public function __invoke(Collection $batch)
+    {
+        // Process batch
+    }
+}
+
+$batchHandler = new BatchHandler(
+    batchSizeLimit: 1000,
+    callback: new Handler() // callable $callback
+);
+
+$consumer = Kafka::createConsumer(['my.topic'], 'group-id', 'broker');
+
+$consumer
+    ->withHandler($batchHandler)
+    ->build()
+    ->consume();
 ```
